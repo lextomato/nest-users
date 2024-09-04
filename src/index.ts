@@ -12,6 +12,9 @@ export * from './roles/roles.service';
 
 export * from './common/utils/jwt.strategy';
 
+export * from './common/utils/jwt-auth.guard';
+export * from './common/utils/roles.guard';
+
 export * from './common/entities/users.entity';
 export * from './common/entities/sessions.entity';
 export * from './common/entities/authentications.entity';
