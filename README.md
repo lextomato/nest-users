@@ -350,10 +350,10 @@ export class AdminController {
 
 Las contribuciones son bienvenidas. Por favor, sigue estos pasos para contribuir:
 
-1. Haz un fork del proyecto.
-2. Crea una nueva rama (`git checkout -b feature/nueva-funcion`).
+1. Haz un fork del proyecto desde [aquí](https://github.com/lextomato/nest-users).
+2. Crea una nueva rama (`git checkout -b feature/new-function`).
 3. Haz commit de tus cambios (`git commit -am 'Añadir nueva función'`).
-4. Haz push a la rama (`git push origin feature/nueva-funcion`).
+4. Haz push a la rama (`git push origin feature/new-function`).
 5. Crea un nuevo Pull Request.
 
 ---
@@ -374,7 +374,7 @@ Si te gusta este proyecto y te gustaría apoyarlo, considera hacer una donación
 
 ### 🔗 **Recursos Adicionales**
 
-- 🛠️ [Issues](https://github.com/tu-repositorio/issues) _(Link a la página de Issues para reportar problemas o sugerir mejoras)._
+- 🛠️ [Issues](https://github.com/lextomato/nest-users/issues) _(Link a la página de Issues para reportar problemas o sugerir mejoras)._
 - 📘 [Documentación de NestJS](https://docs.nestjs.com) _(Para obtener más información sobre cómo funciona NestJS)._
 
 ---
