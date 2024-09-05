@@ -241,10 +241,6 @@ La demo te permitirá:
 
 ---
 
-Este diseño ofrece una forma sencilla de mantener tu README limpio y redirigir a los usuarios hacia la documentación completa en Swagger, que es interactiva y mucho más detallada que un simple listado en el README.
-
----
-
 ## 📖 **Especificaciones**
 
 ### 🔑 **`AuthModule`**
