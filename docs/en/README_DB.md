@@ -1,23 +1,23 @@
-# 🗄️ Base de Datos para **📦@lextomato/nest-users**
+# 🗄️ Database for **📦@lextomato/nest-users**
 
-> ✨ _**@lextomato/nest-users** necesita una base de datos configurada en PostgreSQL para operar correctamente. A continuación, te mostramos paso a paso cómo configurar la estructura de la base de datos necesaria para que el paquete funcione sin problemas._
+> ✨ _**@lextomato/nest-users** requires a PostgreSQL database to operate correctly. Below is a step-by-step guide on how to set up the necessary database structure for the package to function smoothly._
 
-## 📚 **Tabla de Contenidos**
+## 📚 **Table of Contents**
 
-- [Estructuras de Tablas](#️-estructura-de-tablas)
+- [Table Structures](#️-table-structures)
 - [Primary Keys](#-primary-keys)
 - [Unique Constraints](#-unique-constraints)
 - [Foreign Keys](#-foreign-keys)
 - [Default Sequences](#-default-sequences)
-- [Configuracion automatica](#-instrucciones-para-configurar-la-base-de-datos)
+- [Automated Setup](#-instructions-for-setting-up-the-database)
 
 ---
 
-## 🗂️ Estructura de Tablas
+## 🗂️ Table Structures
 
-![Diagrama de Base de Datos](./diagram.png)
+![Database Diagram](/database//diagram.png)
 
-### 1. Tabla: `public.authentications`
+### 1. Table: `public.authentications`
 
 ```sql
 CREATE TABLE public.authentications (
@@ -29,7 +29,7 @@ CREATE TABLE public.authentications (
 );
 ```
 
-### 2. Tabla: `public.passwordRecoveries`
+### 2. Table: `public.passwordRecoveries`
 
 ```sql
 CREATE TABLE public."passwordRecoveries" (
@@ -42,7 +42,7 @@ CREATE TABLE public."passwordRecoveries" (
 );
 ```
 
-### 3. Tabla: `public.permissions`
+### 3. Table: `public.permissions`
 
 ```sql
 CREATE TABLE public.permissions (
@@ -56,7 +56,7 @@ CREATE TABLE public.permissions (
 );
 ```
 
-### 4. Tabla: `public.rolePermissions`
+### 4. Table: `public.rolePermissions`
 
 ```sql
 CREATE TABLE public."rolePermissions" (
@@ -69,7 +69,7 @@ CREATE TABLE public."rolePermissions" (
 );
 ```
 
-### 5. Tabla: `public.roles`
+### 5. Table: `public.roles`
 
 ```sql
 CREATE TABLE public.roles (
@@ -82,7 +82,7 @@ CREATE TABLE public.roles (
 );
 ```
 
-### 6. Tabla: `public.sessions`
+### 6. Table: `public.sessions`
 
 ```sql
 CREATE TABLE public.sessions (
@@ -97,7 +97,7 @@ CREATE TABLE public.sessions (
 );
 ```
 
-### 7. Tabla: `public.users`
+### 7. Table: `public.users`
 
 ```sql
 CREATE TABLE public.users (
@@ -204,57 +204,57 @@ ALTER TABLE ONLY public.users ALTER COLUMN "userId" SET DEFAULT nextval('public.
 
 ---
 
-## 🚀 Instrucciones para Configurar la Base de Datos
+## 🚀 Instructions for Setting Up the Database
 
-> ✨ _Puedes usar el script `init.sql` ubicado en el directorio [database/init.sql](./init.sql) de este repositorio para crear automáticamente toda la estructura de la base de datos._
+> ✨ _You can use the `init.sql` script located in the [database/init.sql](/database/init.sql) directory of this repository to automatically create the entire database structure._
 
-### Requisitos Previos
+### Prerequisites
 
-Antes de ejecutar el script `init.sql`, asegúrate de tener lo siguiente:
+Before running the `init.sql` script, make sure you have the following:
 
-1. **PostgreSQL instalado**: Si no tienes PostgreSQL instalado, puedes descargarlo desde [aquí](https://www.postgresql.org/download/).
-2. **Base de datos creada**: Crea una nueva base de datos para tu proyecto si aún no lo has hecho. Por ejemplo:
+1. **PostgreSQL installed**: If you don’t have PostgreSQL installed, you can download it from [here](https://www.postgresql.org/download/).
+2. **Database created**: Create a new database for your project if you haven’t already. For example:
    ```bash
    createdb my_database
    ```
-3. **Acceso a tu base de datos**: Asegúrate de tener las credenciales necesarias para conectarte a tu base de datos.
+3. **Access to your database**: Ensure you have the necessary credentials to connect to your database.
 
-### Ejecución del Script `init.sql`
+### Running the `init.sql` Script
 
-Para configurar la base de datos con la estructura necesaria, sigue los siguientes pasos:
+To set up the database with the required structure, follow these steps:
 
-1. **Descarga el archivo `init.sql`**: Puedes encontrarlo en el directorio `/database/` de este repositorio o descargarlo desde el enlace proporcionado.
-2. **Conéctate a PostgreSQL**: Usa el siguiente comando para conectarte a tu base de datos desde la terminal o consola:
-
-   ```bash
-   psql -U <tu-usuario> -d <nombre-de-tu-base-de-datos>
-   ```
-
-3. **Ejecuta el archivo `init.sql`**: Una vez conectado, ejecuta el script para crear las tablas y secuencias. Puedes usar el siguiente comando:
+1. **Download the `init.sql` file**: You can find it in the `/database/` directory of this repository or download it from the provided link.
+2. **Connect to PostgreSQL**: Use the following command to connect to your database from the terminal or console:
 
    ```bash
-   psql -U <tu-usuario> -d <nombre-de-tu-base-de-datos> -f /ruta/donde/se/encuentra/init.sql
+   psql -U <your-username> -d <your-database-name>
    ```
 
-   Asegúrate de reemplazar `/<ruta/donde/se/encuentra/init.sql>` con la ruta real donde está ubicado el archivo `init.sql`.
+3. **Run the `init.sql` file**: Once connected, execute the script to create the tables and sequences. You can use the following command:
 
-4. **Verifica la estructura de la base de datos**: Una vez ejecutado el script, puedes revisar las tablas creadas usando el comando:
+   ```bash
+   psql -U <your-username> -d <your-database-name> -f /path/to/init.sql
+   ```
+
+   Make sure to replace `/<path/to/init.sql>` with the actual path where the `init.sql` file is located.
+
+4. **Verify the database structure**: Once the script is executed, you can check the created tables by using the command:
    ```sql
    \dt
    ```
-   Este comando te mostrará todas las tablas creadas en la base de datos.
+   This command will display all the tables created in the database.
 
-### Consideraciones Adicionales
+### Additional Considerations
 
-- **Modificaciones personalizadas**: Si necesitas hacer modificaciones a la estructura antes de la ejecución, puedes editar el archivo `init.sql` para ajustarlo a tus necesidades.
-- **Restauración de la base de datos**: Si ya tienes una base de datos existente y solo necesitas restaurar la estructura, el archivo `init.sql` se encargará de crear las tablas sin necesidad de eliminar datos existentes.
+- **Custom modifications**: If you need to make changes to the structure before running the script, you can edit the `init.sql` file to suit your needs.
+- **Database restoration**: If you already have an existing database and only need to restore the structure, the `init.sql` file will create the necessary tables without deleting existing data.
 
 ---
 
-### Ejemplo Completo
+### Complete Example
 
 ```bash
 psql -U postgres -d my_database -f /documents/init.sql
 ```
 
-Este ejemplo creará todas las tablas, secuencias y restricciones en la base de datos `my_database` usando el usuario `postgres`.
+This example will create all tables, sequences, and constraints in the `my_database` database using the `postgres` user.

@@ -9,6 +9,8 @@
 
 ![npm](https://img.shields.io/npm/v/@lextomato/nest-users?color=brightgreen&style=flat-square) ![npm](https://img.shields.io/npm/dt/@lextomato/nest-users?style=flat-square) [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](https://opensource.org/licenses/MIT) [![Donate](https://img.shields.io/badge/Donate-PayPal-blue.svg?style=flat-square)](https://paypal.me/lextomato)
 
+📄 [Documentation in English](./docs/en/README.md)
+
 > ✨ _**@lextomato/nest-users** es una solución integral y lista para usar que simplifica la implementación de autenticación, gestión de usuarios, control de roles y permisos en tus proyectos **NestJS**. Con este paquete, podrás manejar de forma segura y eficiente todo el ciclo de autenticación (incluyendo **login**, **logout**, **cambio de contraseña**, y **recuperación de contraseñas olvidadas**), mientras que también te permite gestionar **usuarios**, **roles**, y **permisos** a través de un completo sistema de **CRUD**._
 
 > ✨ _Además, proporciona un robusto sistema de **Control de Acceso** que garantiza que cada endpoint de **tu aplicación solo sea accesible por usuarios con los permisos adecuados**, basados en los roles asignados. Perfecto para aplicaciones que requieren un control de acceso detallado y una administración centralizada de usuarios._
@@ -19,8 +21,9 @@
 - [Requisitos](#-requisitos)
 - [Instalación](#️-instalación)
 - [Configuración](#️-configuración)
-  - [Variables de Entorno](#-variables-de-entorno)
-  - [Integracion de Swagger](#-integración-de-swagger)
+  - [Variables de Entorno](#--variables-de-entorno)
+  - [Integracion de Swagger](#--integración-de-swagger)
+  - [Configuración de Plantillas Personalizadas para el MailModule](#-️-configuración-de-plantillas-personalizadas-para-el-mailmodule)
 - [Uso Básico](#-uso-básico)
 - [API](#-api)
 - [Especificaciones](#-especificaciones)
@@ -106,7 +109,7 @@ yarn add @lextomato/nest-users
 
 ## ⚙️ **Configuración**
 
-#### 📄 Variables de Entorno
+#### 🔘 📄 Variables de Entorno
 
 El paquete se configura a través de variables de entorno según el archivo `.env` en la raiz, el cual debe tener las siguientes variables de entorno:
 
@@ -129,7 +132,7 @@ El paquete se configura a través de variables de entorno según el archivo `.en
 | `APP_DOMAIN`                  | 🌐 _Dominio de la aplicación, utilizado para generar enlaces en los correos._ | `http://localhost:9000` o `https://frontend-domain.com` |
 | `ENDPOINT_FROM_RECOVERY_PASS` | 🔄 _Ruta del frontend para el formulario de recuperación de contraseñas._     | `/#/reset-password`                                     |
 
-#### 📋 **Integración de Swagger**
+#### 🔘 📋 **Integración de Swagger**
 
 ##### Tags por Defecto
 
@@ -137,7 +140,7 @@ El paquete **@lextomato/nest-users** incluye una serie de **tags predefinidos en
 
 > **Nota**: Estos tags estarán disponibles automáticamente en tu documentación Swagger, previa configuración de Swagger en tu proyecto.
 
-#### Configuración de Swagger
+##### Configuración de Swagger
 
 Para habilitar Swagger en tu proyecto, añade el siguiente código en el archivo `main.ts` de tu aplicación:
 
@@ -168,6 +171,80 @@ bootstrap();
 ```
 
 Con esta configuración, podrás visualizar la documentación de tu API generada automáticamente en `http://localhost:3000/api`, donde se mostrarán los **tags de Swagger** correspondientes a las funciones principales de tu servicio.
+
+#### 🔘 ✉️ **Configuración de Plantillas Personalizadas para el `MailModule`**
+
+El `MailModule` de este paquete permite configurar plantillas personalizadas para los correos electrónicos enviados. Estas plantillas son completamente adaptables y deben incluir ciertas **variables clave** que serán reemplazadas dinámicamente cuando se envíe el correo.
+
+##### 📝 **Variables Clave**
+
+Cada plantilla debe incluir las siguientes variables en su sintaxis, las cuales serán reemplazadas automáticamente al enviar el correo:
+
+- **`{{name}}`**: El nombre del destinatario.
+- **`{{lastname}}`**: El apellido del destinatario.
+- **`{{link}}`**: Un enlace dinámico que varía según el tipo de correo (activación de cuenta, recuperación de contraseña, etc.) que es generado por el sistema.
+
+##### 🔧 **Cómo Configurar Plantillas Personalizadas**
+
+Para configurar las plantillas personalizadas, debes pasar un objeto con las plantillas deseadas al método `forRoot` del `MailModule`. A continuación, se muestra cómo definir y utilizar las plantillas en tu proyecto:
+
+##### **1. Definir Plantillas**
+
+Define tus propias plantillas, especificando el asunto y el cuerpo del correo. Asegúrate de incluir las variables `{{name}}`, `{{lastname}}` y `{{link}}`.
+
+```typescript
+const customTemplates = {
+  accountActivation: {
+    subject: 'Activa tu cuenta en MyApp',
+    body: `
+      <h1>Hola, {{name}} {{lastname}}</h1>
+      <p>Gracias por registrarte en nuestra aplicación. Para activar tu cuenta, haz clic en el siguiente enlace:</p>
+      <a href="{{link}}">Activar Cuenta</a>
+    `,
+  },
+  passwordRecovery: {
+    subject: 'Recupera tu contraseña en MyApp',
+    body: `
+      <h1>Hola, {{name}} {{lastname}}</h1>
+      <p>Hemos recibido una solicitud para restablecer tu contraseña. Puedes cambiarla haciendo clic en el siguiente enlace:</p>
+      <a href="{{link}}">Restablecer Contraseña</a>
+    `,
+  },
+};
+```
+
+##### **2. Configurar el `MailModule`**
+
+Al inicializar el `MailModule` en tu aplicación, pasa las plantillas personalizadas que acabas de definir mediante el método `forRoot`.
+
+```typescript
+import { Module } from '@nestjs/common';
+import { MailModule } from '@lextomato/nest-users';
+
+@Module({
+  imports: [
+    MailModule.forRoot({
+      accountActivation: {
+        subject: 'Activa tu cuenta en MyApp',
+        body: `
+          <h1>Hola, {{name}} {{lastname}}</h1>
+          <p>Para activar tu cuenta, haz clic en el enlace:</p>
+          <a href="{{link}}">Activar Cuenta</a>
+        `,
+      },
+      passwordRecovery: {
+        subject: 'Recupera tu contraseña en MyApp',
+        body: `
+          <h1>Hola, {{name}} {{lastname}}</h1>
+          <p>Haz clic en el siguiente enlace para recuperar tu contraseña:</p>
+          <a href="{{link}}">Recuperar Contraseña</a>
+        `,
+      },
+    }),
+  ],
+})
+export class AppModule {}
+```
 
 ---
 

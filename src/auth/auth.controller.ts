@@ -35,7 +35,7 @@ import {
   ResponseInternalErrorDto,
 } from './dto/responses-conflict.dto';
 import { JwtAuthGuard } from 'src/common/utils/jwt-auth.guard';
-import { RequestChangePasswordDto } from './dto/request-chamge-password.dto';
+import { RequestChangePasswordDto } from './dto/request-change-password.dto';
 import { ResponseAuthUnathorizedDto } from './dto/responses-unathorized.dto';
 import { RequestForgotPasswordDto } from './dto/request-forgot-password.dto';
 import { RolesGuard } from 'src/common/utils/roles.guard';

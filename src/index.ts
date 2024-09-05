@@ -10,6 +10,8 @@ export * from './permissions/permissions.service';
 export * from './roles/roles.module';
 export * from './roles/roles.service';
 
+export * from './mail/mail.module';
+
 export * from './common/utils/jwt.strategy';
 
 export * from './common/utils/jwt-auth.guard';
