@@ -1,6 +1,6 @@
 {
   "name": "@lextomato/nest-users",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Es una solución integral y lista para usar que simplifica la implementación de autenticación, gestión de usuarios, control de roles y permisos en tus proyectos NestJS",
   "repository": {
     "type": "git",
