@@ -2,11 +2,16 @@
   "name": "@lextomato/nest-users",
   "version": "1.0.1",
   "description": "Es una solución integral y lista para usar que simplifica la implementación de autenticación, gestión de usuarios, control de roles y permisos en tus proyectos NestJS",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lextomato/nest-users"
+  },
+  "homepage": "https://github.com/lextomato/nest-users#readme",
   "author": "Jhojany Uzcategui",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "private": false,
-  "license": "UNLICENSED",
+  "license": "MIT",
   "scripts": {
     "build": "rimraf dist && nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
