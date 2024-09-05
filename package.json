@@ -1,7 +1,7 @@
 {
   "name": "@lextomato/nest-users",
-  "version": "1.0.0",
-  "description": "API con CRUD y Auth de usuarios",
+  "version": "1.0.1",
+  "description": "Es una solución integral y lista para usar que simplifica la implementación de autenticación, gestión de usuarios, control de roles y permisos en tus proyectos NestJS",
   "author": "Jhojany Uzcategui",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
