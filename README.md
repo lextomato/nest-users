@@ -22,6 +22,7 @@
   - [Variables de Entorno](#-variables-de-entorno)
   - [Integracion de Swagger](#-integración-de-swagger)
 - [Uso Básico](#-uso-básico)
+- [API](#-api)
 - [Especificaciones](#-especificaciones)
 - [Otras Características](#-otras-características)
 - [Ejemplos](#-ejemplos)
@@ -210,6 +211,37 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 })
 export class AppModule {}
 ```
+
+---
+
+## 📡 **API**
+
+La API de **@lextomato/nest-users** ofrece todas las funcionalidades necesarias para gestionar **usuarios**, **roles**, **permisos**, y **autenticación** en tu aplicación NestJS.
+
+### 🌟 **Endpoints disponibles**
+
+Puedes explorar todos los **endpoints** de la API de forma interactiva a través de nuestra documentación **Swagger** en línea. En ella encontrarás:
+
+- 📄 **Autenticación**: Login, logout, recuperación de contraseña y más.
+- 👥 **Usuarios**: CRUD completo para la gestión de usuarios.
+- 🛡️ **Roles y Permisos**: Gestión de roles y permisos para control de acceso.
+
+### 🌐 **Demo en Línea de Swagger**
+
+👉 Accede a la **documentación Swagger** para ver la lista completa de endpoints y probar cada uno de ellos directamente desde la interfaz interactiva.
+
+**[Documentación Swagger - Demo en Línea](https://lextomato.github.io/nest-users-swagger-ui/)** 🌍
+
+> **⚠️ Nota**: Esta es una demo estática destinada únicamente para **visualización**. La funcionalidad interactiva está deshabilitada, por lo que no es posible realizar pruebas de solicitudes o interactuar con los endpoints.
+
+La demo te permitirá:
+
+- Ver ejemplos de respuestas y formatos de solicitudes.
+- Entender cómo interactuar con la API utilizando diferentes métodos y parámetros.
+
+---
+
+Este diseño ofrece una forma sencilla de mantener tu README limpio y redirigir a los usuarios hacia la documentación completa en Swagger, que es interactiva y mucho más detallada que un simple listado en el README.
 
 ---
 
