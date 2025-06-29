@@ -30,7 +30,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
           status: 'error',
           message: 'El Token ha sido revocado.',
         },
-        HttpStatus.CONFLICT,
+        HttpStatus.UNAUTHORIZED,
       );
 
     // Si el token es válido, continúa con la validación
