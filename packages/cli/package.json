@@ -1,0 +1,93 @@
+{
+  "name": "@lextomato/nest-users-cli",
+  "description": "CLI tool to generate editable NestJS projects pre-configured with authentication, user management, roles, and permissions using @lextomato/nest-users.",
+  "version": "0.2.5",
+  "author": "Jhojany Uzcategui",
+  "bin": {
+    "nestusers": "./bin/run.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lextomato/nest-users"
+  },
+  "homepage": "https://github.com/lextomato/nest-users/tree/main/packages/cli",
+  "bugs": "https://github.com/@lextomato/nest-users/issues",
+  "dependencies": {
+    "@esm2cjs/execa": "6.1.1-cjs.1",
+    "@oclif/core": "^4",
+    "@oclif/plugin-help": "^6",
+    "@oclif/plugin-plugins": "^5",
+    "chalk": "^4.1.2",
+    "execa": "^6.1.0",
+    "fs-extra": "^11.2.0",
+    "prompts": "^2.4.2"
+  },
+  "devDependencies": {
+    "@eslint/compat": "^1",
+    "@oclif/prettier-config": "^0.2.1",
+    "@oclif/test": "^4",
+    "@types/chai": "^4",
+    "@types/fs-extra": "^11.0.4",
+    "@types/mocha": "^10",
+    "@types/node": "^18",
+    "@types/prompts": "^2.4.9",
+    "chai": "^4",
+    "eslint": "^9",
+    "eslint-config-oclif": "^6",
+    "eslint-config-prettier": "^10",
+    "mocha": "^10",
+    "oclif": "^4",
+    "shx": "^0.3.3",
+    "ts-node": "^10",
+    "typescript": "^5"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "./bin",
+    "./dist",
+    "./templates",
+    "./oclif.manifest.json",
+    "./README.md"
+  ],
+  "keywords": [
+    "oclif"
+  ],
+  "license": "MIT",
+  "main": "dist/index.js",
+  "oclif": {
+    "bin": "nestusers",
+    "dirname": "nestusers",
+    "commands": "./dist/commands",
+    "plugins": [
+      "@oclif/plugin-help",
+      "@oclif/plugin-plugins"
+    ],
+    "topicSeparator": " ",
+    "topics": {
+      "init": {
+        "description": "Scaffold a new NestJS project"
+      }
+    }
+  },
+  "scripts": {
+    "build": "shx rm -rf dist && tsc -b",
+    "lint": "eslint",
+    "postpack": "shx rm -f oclif.manifest.json",
+    "posttest": "pnpm run lint",
+    "prepack": "oclif manifest && oclif readme",
+    "test": "mocha --forbid-only \"test/**/*.test.ts\"",
+    "version": "oclif readme && git add README.md",
+    "prepublishOnly": "npm run build && oclif manifest && oclif readme"
+  },
+  "types": "dist/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "pnpm": {
+    "overrides": {
+      "execa": "6.1.0"
+    }
+  }
+}

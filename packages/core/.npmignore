@@ -1,0 +1,6 @@
+src/
+test/
+*.ts
+tsconfig*.json
+.nyc_output
+.eslintrc*
