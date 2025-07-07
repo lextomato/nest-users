@@ -11,7 +11,7 @@
 
 📄 [Documentation in English](./docs/en/README.md)
 
-> ✨ _**@lextomato/nest-users** es una solución integral y lista para usar que simplifica la implementación de autenticación, gestión de usuarios, control de roles y permisos en tus proyectos **NestJS**. Con este paquete, podrás manejar de forma segura y eficiente todo el ciclo de autenticación (incluyendo **login**, **logout**, **cambio de contraseña**, y **recuperación de contraseñas olvidadas**), mientras que también te permite gestionar **usuarios**, **roles**, y **permisos** a través de un completo sistema de **CRUD**._
+> ✨ _**@lextomato/nest-users** es una solución integral y lista para usar que simplifica la implementación de autenticación, gestión de usuarios, control de roles y permisos en tus proyectos **NestJS**. Con este paquete, podrás manejar de forma segura y eficiente todo el ciclo de autenticación (incluyendo **login**, **logout**, **register**, **login/register con google**, **cambio de contraseña**, y **recuperación de contraseñas olvidadas**), mientras que también te permite gestionar **usuarios**, **roles**, y **permisos** a través de un completo sistema de **CRUD**._
 
 > ✨ _Además, proporciona un robusto sistema de **Control de Acceso** que garantiza que cada endpoint de **tu aplicación solo sea accesible por usuarios con los permisos adecuados**, basados en los roles asignados. Perfecto para aplicaciones que requieren un control de acceso detallado y una administración centralizada de usuarios._
 
@@ -39,7 +39,7 @@
 
 ## 🚀 **Características**
 
-- 🔒 **Autenticación Completa**: Implementación de autenticación basada en JWT, incluyendo login, logout, validación de sesión, cambio y recuperación de contraseñas.
+- 🔒 **Autenticación Completa**: Implementación de autenticación basada en JWT, incluyendo login, logout, register, login/register con google, validación de sesión, cambio y recuperación de contraseñas.
 - 🧒🏻​ **Gestión de Usuarios**: CRUD completo para usuarios con integración de roles.
 - ⚡️ **Sistema de Roles y Permisos**: Control de acceso basado en roles y permisos con un guardia de roles integrado.
 - 📧​ **Sistema de Correo**: Envío de correos electrónicos para activación de cuentas y recuperación de contraseñas, con configuración dinámica de plantillas y transporte.
@@ -115,22 +115,30 @@ El paquete se configura a través de variables de entorno según el archivo `.en
 
 > ⚠️ _**IMPORTANTE:** este paquete fue diseñado para una base de datos basada en **Postgres SQL**. Se detalla la estructura de la misma para la correcta integracion con el paquete en este enlace [➡️Guía de Configuración de la Base de Datos](./database/README.md)._
 
-| Variable                      | Descripción                                                                   | Ejemplo                                                 |
-| ----------------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------- |
-| `JWT_SECRET`                  | 🔑 _Clave secreta para firmar los tokens JWT._                                | `session-Trrs79`                                        |
-| `DB_HOST`                     | 🗄️ _Dirección del host de la base de datos._                                  | `localhost`                                             |
-| `DB_PORT`                     | 🛠️ _Puerto de conexión a la base de datos._                                   | `5432`                                                  |
-| `DB_USER`                     | 👤 _Nombre de usuario para acceder a la base de datos._                       | `db_user`                                               |
-| `DB_PASS`                     | 🔐 _Contraseña del usuario de la base de datos._                              | `db_password`                                           |
-| `DB_NAME`                     | 📂 _Nombre de la base de datos._                                              | `db_name`                                               |
-| `EMAIL_HOST`                  | 📧 _Servidor SMTP utilizado para el envío de correos._                        | `smtp.gmail.com`                                        |
-| `EMAIL_PORT`                  | 🔌 _Puerto de conexión para el servidor SMTP._                                | `465`                                                   |
-| `EMAIL_USER`                  | 👤 _Dirección de correo electrónico utilizada para enviar correos._           | `example@gmail.com`                                     |
-| `EMAIL_PASS`                  | 🔐 _Contraseña del correo electrónico utilizado._                             | `email_password`                                        |
-| `EMAIL_SECURE`                | ✅ _Indicador de si se debe usar una conexión segura (SSL/TLS)._              | `true (Obligatorio en true)`                            |
-| `EMAIL_FROM`                  | ✉️ _Dirección de correo "De" que aparecerá en los correos enviados._          | `"Your App" <example@gmail.com>`                        |
-| `APP_DOMAIN`                  | 🌐 _Dominio de la aplicación, utilizado para generar enlaces en los correos._ | `http://localhost:9000` o `https://frontend-domain.com` |
-| `ENDPOINT_FROM_RECOVERY_PASS` | 🔄 _Ruta del frontend para el formulario de recuperación de contraseñas._     | `/#/reset-password`                                     |
+<!-- GOOGLE_CLIENT_ID=71618832706-a3rqr4egem8r2tb8bfe5smholijhlbiq.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=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
+GOOGLE_CALLBACK_URL=http://localhost:8080/auth/google/redirect -->
+
+| Variable                       | Descripción                                                                   | Ejemplo                                                                                           |
+| ------------------------------ | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| `JWT_SECRET`                   | 🔑 _Clave secreta para firmar los tokens JWT._                                | `session-Trrs79`                                                                                  |
+| `DB_HOST`                      | 🗄️ _Dirección del host de la base de datos._                                  | `localhost`                                                                                       |
+| `DB_PORT`                      | 🛠️ _Puerto de conexión a la base de datos._                                   | `5432`                                                                                            |
+| `DB_USER`                      | 👤 _Nombre de usuario para acceder a la base de datos._                       | `db_user`                                                                                         |
+| `DB_PASS`                      | 🔐 _Contraseña del usuario de la base de datos._                              | `db_password`                                                                                     |
+| `DB_NAME`                      | 📂 _Nombre de la base de datos._                                              | `db_name`                                                                                         |
+| `EMAIL_HOST`                   | 📧 _Servidor SMTP utilizado para el envío de correos._                        | `smtp.gmail.com`                                                                                  |
+| `EMAIL_PORT`                   | 🔌 _Puerto de conexión para el servidor SMTP._                                | `465`                                                                                             |
+| `EMAIL_USER`                   | 👤 _Dirección de correo electrónico utilizada para enviar correos._           | `example@gmail.com`                                                                               |
+| `EMAIL_PASS`                   | 🔐 _Contraseña del correo electrónico utilizado._                             | `email_password`                                                                                  |
+| `EMAIL_SECURE`                 | ✅ _Indicador de si se debe usar una conexión segura (SSL/TLS)._              | `true (Obligatorio en true)`                                                                      |
+| `EMAIL_FROM`                   | ✉️ _Dirección de correo "De" que aparecerá en los correos enviados._          | `"Your App" <example@gmail.com>`                                                                  |
+| `APP_DOMAIN`                   | 🌐 _Dominio de la aplicación, utilizado para generar enlaces en los correos._ | `http://localhost:9000` o `https://frontend-domain.com`                                           |
+| `ENDPOINT_FROM_RECOVERY_PASS`  | 🔄 _Ruta del frontend para el formulario de recuperación de contraseñas._     | `/#/reset-password`                                                                               |
+| `ENDPOINT_TO_ACTIVATE_ACCOUNT` | 🔄 _Ruta del frontend para el formulario de activación de cuenta._            | `/#/activate-account`                                                                             |
+| `GOOGLE_CLIENT_ID`             | 🆔 _ID de cliente de Google para autenticación OAuth2._                       | `72318992115-a8pdp4egem2r9hq8bfv9smholikwpaql.apps.googleusercontent.com`                         |
+| `GOOGLE_CLIENT_SECRET`         | 🔑 _Secreto de cliente de Google para autenticación OAuth2._                  | `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`                                                             |
+| `GOOGLE_CALLBACK_URL`          | 🔄 _URL de callback para la autenticación con Google OAuth2._                 | `http://localhost:8080/auth/google/redirect` o `https://frontend-domain.com/auth/google/redirect` |
 
 #### 🔘 📋 **Integración de Swagger**
 
@@ -299,7 +307,7 @@ La API de **@lextomato/nest-users** ofrece todas las funcionalidades necesarias 
 
 Puedes explorar todos los **endpoints** de la API de forma interactiva a través de nuestra documentación **Swagger** en línea. En ella encontrarás:
 
-- 📄 **Autenticación**: Login, logout, recuperación de contraseña y más.
+- 📄 **Autenticación**: Login, logout, register, login/register con google, recuperación de contraseña y más.
 - 👥 **Usuarios**: CRUD completo para la gestión de usuarios.
 - 🛡️ **Roles y Permisos**: Gestión de roles y permisos para control de acceso.
 
@@ -322,8 +330,9 @@ La demo te permitirá:
 
 ### 🔑 **`AuthModule`**
 
+- **Autenticación con Google**: Permite a los usuarios iniciar sesión o registrarse utilizando su cuenta de Google mediante OAuth2, integrando el flujo de autenticación de Google de forma segura y sencilla en tu aplicación.
 - **Autenticación con JWT**: Implementación robusta de autenticación basada en JWT, que incluye validación de sesiones activas y manejo de tokens revocados para máxima seguridad.
-- **Endpoints de Autenticación**: Soporte para login, logout, validación de sesión, cambio de contraseña y recuperación de contraseñas olvidadas.
+- **Endpoints de Autenticación**: Soporte para login, logout, register, validación de sesión, cambio de contraseña y recuperación de contraseñas olvidadas.
 - **Estrategia JWT**: Implementación de la estrategia JWT con validación de tokens en cada solicitud y soporte para revocación de tokens.
 
 ### 👥 **`UsersModule`**

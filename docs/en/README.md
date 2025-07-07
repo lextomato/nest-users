@@ -11,7 +11,7 @@
 
 📄 [Documentación en Español](/README.md)
 
-> ✨ _**@lextomato/nest-users** is a comprehensive, ready-to-use solution that simplifies the implementation of authentication, user management, role control, and permissions in your **NestJS** projects. With this package, you can securely and efficiently handle the entire authentication cycle (including **login**, **logout**, **password change**, and **password recovery**), while also managing **users**, **roles**, and **permissions** through a complete **CRUD** system._
+> ✨ _**@lextomato/nest-users** is a comprehensive, ready-to-use solution that simplifies the implementation of authentication, user management, role control, and permissions in your **NestJS** projects. With this package, you can securely and efficiently handle the entire authentication cycle (including **login**, **logout**, **register**, **login/register with google**, **password change**, and **password recovery**), while also managing **users**, **roles**, and **permissions** through a complete **CRUD** system._
 
 > ✨ _Additionally, it provides a robust **Access Control** system that ensures that each endpoint of **your application is only accessible by users with the correct permissions**, based on assigned roles. Perfect for applications requiring detailed access control and centralized user management._
 
@@ -39,7 +39,7 @@
 
 ## 🚀 **Features**
 
-- 🔒 **Complete Authentication**: JWT-based authentication implementation, including login, logout, session validation, password change, and recovery.
+- 🔒 **Complete Authentication** – JWT-based authentication with login, logout, register, Google login/register, session validation, password change and recovery.
 - 🧒🏻 **User Management**: Full CRUD for users with role integration.
 - ⚡️ **Role and Permission System**: Role and permission-based access control with an integrated role guard.
 - 📧 **Email System**: Sends emails for account activation and password recovery with dynamic template and transport configuration.
@@ -115,22 +115,26 @@ The package is configured through environment variables as per the `.env` file i
 
 > ⚠️ _**IMPORTANT:** this package was designed for a **Postgres SQL**-based database. The structure of this database is detailed for proper integration with the package at this link [➡️Database Setup Guide](./README_DB.md)._
 
-| Variable                      | Description                                                     | Example                                                  |
-| ----------------------------- | --------------------------------------------------------------- | -------------------------------------------------------- |
-| `JWT_SECRET`                  | 🔑 _Secret key to sign JWT tokens._                             | `session-Trrs79`                                         |
-| `DB_HOST`                     | 🗄️ _Database host address._                                     | `localhost`                                              |
-| `DB_PORT`                     | 🛠️ _Database connection port._                                  | `5432`                                                   |
-| `DB_USER`                     | 👤 _Username to access the database._                           | `db_user`                                                |
-| `DB_PASS`                     | 🔐 _Password for the database user._                            | `db_password`                                            |
-| `DB_NAME`                     | 📂 _Database name._                                             | `db_name`                                                |
-| `EMAIL_HOST`                  | 📧 _SMTP server used for sending emails._                       | `smtp.gmail.com`                                         |
-| `EMAIL_PORT`                  | 🔌 _Connection port for the SMTP server._                       | `465`                                                    |
-| `EMAIL_USER`                  | 👤 _Email address used to send emails._                         | `example@gmail.com`                                      |
-| `EMAIL_PASS`                  | 🔐 _Password for the email account used._                       | `email_password`                                         |
-| `EMAIL_SECURE`                | ✅ _Indicator of whether to use a secure connection (SSL/TLS)._ | `true (Must be true)`                                    |
-| `EMAIL_FROM`                  | ✉️ _"From" email address that will appear in sent emails._      | `"Your App" <example@gmail.com>`                         |
-| `APP_DOMAIN`                  | 🌐 _Application domain, used to generate links in emails._      | `http://localhost:9000` or `https://frontend-domain.com` |
-| `ENDPOINT_FROM_RECOVERY_PASS` | 🔄 _Frontend path for the password recovery form._              | `/#/reset-password`                                      |
+| Variable                       | Description                                                     | Example                                                                                           |
+| ------------------------------ | --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| `JWT_SECRET`                   | 🔑 _Secret key to sign JWT tokens._                             | `session-Trrs79`                                                                                  |
+| `DB_HOST`                      | 🗄️ _Database host address._                                     | `localhost`                                                                                       |
+| `DB_PORT`                      | 🛠️ _Database connection port._                                  | `5432`                                                                                            |
+| `DB_USER`                      | 👤 _Username to access the database._                           | `db_user`                                                                                         |
+| `DB_PASS`                      | 🔐 _Password for the database user._                            | `db_password`                                                                                     |
+| `DB_NAME`                      | 📂 _Database name._                                             | `db_name`                                                                                         |
+| `EMAIL_HOST`                   | 📧 _SMTP server used for sending emails._                       | `smtp.gmail.com`                                                                                  |
+| `EMAIL_PORT`                   | 🔌 _Connection port for the SMTP server._                       | `465`                                                                                             |
+| `EMAIL_USER`                   | 👤 _Email address used to send emails._                         | `example@gmail.com`                                                                               |
+| `EMAIL_PASS`                   | 🔐 _Password for the email account used._                       | `email_password`                                                                                  |
+| `EMAIL_SECURE`                 | ✅ _Indicator of whether to use a secure connection (SSL/TLS)._ | `true (Must be true)`                                                                             |
+| `EMAIL_FROM`                   | ✉️ _"From" email address that will appear in sent emails._      | `"Your App" <example@gmail.com>`                                                                  |
+| `APP_DOMAIN`                   | 🌐 _Application domain, used to generate links in emails._      | `http://localhost:9000` or `https://frontend-domain.com`                                          |
+| `ENDPOINT_FROM_RECOVERY_PASS`  | 🔄 _Frontend path for the password recovery form._              | `/#/reset-password`                                                                               |
+| `ENDPOINT_TO_ACTIVATE_ACCOUNT` | 🔄 _Frontend route for the account activation form._            | `/#/activate-account`                                                                             |
+| `GOOGLE_CLIENT_ID`             | 🆔 _Google OAuth2 client ID._                                   | `72318992115-a8pdp4egem2r9hq8bfv9smholikwpaql.apps.googleusercontent.com`                         |
+| `GOOGLE_CLIENT_SECRET`         | 🔑 _Google OAuth2 client secret._                               | `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`                                                             |
+| `GOOGLE_CALLBACK_URL`          | 🔄 _Callback URL for Google OAuth2._                            | `http://localhost:8080/auth/google/redirect` o `https://frontend-domain.com/auth/google/redirect` |
 
 #### 🔘 📋 **Swagger Integration**
 
@@ -299,7 +303,7 @@ The **@lextomato/nest-users** API provides all the necessary functionalities for
 
 You can explore all the **API endpoints** interactively through our **online Swagger documentation**. There you will find:
 
-- 📄 **Authentication**: Login, logout, password recovery, and more.
+- 📄 **Authentication**: login, logout, register, Google login/register, password recovery, and more.
 - 👥 **Users**: Full CRUD for user management.
 - 🛡️ **Roles and Permissions**: Management of roles and permissions for access control.
 
@@ -322,6 +326,7 @@ The demo will allow you to:
 
 ### 🔑 **`AuthModule`**
 
+- **Google Auth**: Login or register with a Google account via OAuth2.
 - **JWT Authentication**: Robust JWT-based authentication implementation, including active session validation and revoked token handling for maximum security.
 - **Authentication Endpoints**: Support for login, logout, session validation, password change, and forgotten password recovery.
 - **JWT Strategy**: Implementation of JWT strategy with token validation on each request and support for token revocation.

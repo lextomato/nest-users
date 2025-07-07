@@ -41,6 +41,12 @@ export class UsersEntity {
   @Column({ type: 'int' })
   roleId: number;
 
+  @Column({ nullable: true, unique: true })
+  googleId?: string;
+
+  @Column({ nullable: true })
+  googlePicture?: string;
+
   @ManyToOne(() => RolesEntity)
   @JoinColumn({ name: 'roleId' })
   role: RolesEntity;

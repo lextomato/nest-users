@@ -13,7 +13,9 @@ export * from './roles/roles.service';
 export * from './mail/mail.module';
 
 export * from './common/utils/jwt.strategy';
+export * from './common/utils/google.strategy';
 
+export * from './common/utils/google.guard';
 export * from './common/utils/jwt-auth.guard';
 export * from './common/utils/roles.guard';
 

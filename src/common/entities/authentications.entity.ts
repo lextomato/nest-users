@@ -16,4 +16,10 @@ export class AuthenticationEntity extends BaseEntity {
 
   @Column({ type: 'bool', default: true })
   active: boolean;
+
+  @Column()
+  createdAt: Date;
+
+  @Column({ type: 'timestamp', nullable: true })
+  expiresAt: Date;
 }

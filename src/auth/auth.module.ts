@@ -12,6 +12,8 @@ import { MailModule } from 'src/mail/mail.module';
 import { PasswordRecoveryEntity } from 'src/common/entities/password-recovery.entity';
 import { PermissionsModule } from 'src/permissions/permissions.module';
 import { UsersModule } from 'src/users/users.module';
+import { AuthenticationEntity } from 'src/common/entities/authentications.entity';
+import { GoogleStrategy } from 'src/common/utils/google.strategy';
 
 @Module({
   imports: [
@@ -23,6 +25,7 @@ import { UsersModule } from 'src/users/users.module';
       UsersEntity,
       SessionEntity,
       PasswordRecoveryEntity,
+      AuthenticationEntity,
     ]),
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.registerAsync({
@@ -34,7 +37,7 @@ import { UsersModule } from 'src/users/users.module';
       }),
     }),
   ],
-  providers: [AuthService, JwtStrategy],
+  providers: [AuthService, JwtStrategy, GoogleStrategy],
   controllers: [AuthController],
   exports: [AuthService],
 })

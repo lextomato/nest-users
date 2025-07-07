@@ -25,7 +25,9 @@ CREATE TABLE public.authentications (
     "type" character varying(25),
     "secret" character varying(200),
     "active" boolean DEFAULT true,
-    "userUuid" character varying(200)
+    "userUuid" character varying(200),
+    "createdAt" timestamp without time zone DEFAULT now(),
+    "expiresAt" timestamp without time zone,
 );
 ```
 
@@ -110,7 +112,9 @@ CREATE TABLE public.users (
     "lastname" character varying(200) NOT NULL,
     "email" character varying NOT NULL,
     "passwordHash" character varying,
-    "roleId" integer DEFAULT 1
+    "roleId" integer DEFAULT 1,
+    "googleId" character varying(200) UNIQUE,
+    "googlePicture" character varying(500) DEFAULT
 );
 ```
 

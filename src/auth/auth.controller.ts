@@ -10,6 +10,7 @@ import {
   UseGuards,
   Param,
   HttpException,
+  Get,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import {
@@ -39,6 +40,8 @@ import { RequestChangePasswordDto } from './dto/request-change-password.dto';
 import { ResponseAuthUnathorizedDto } from './dto/responses-unathorized.dto';
 import { RequestForgotPasswordDto } from './dto/request-forgot-password.dto';
 import { RolesGuard } from 'src/common/utils/roles.guard';
+import { GoogleAuthGuard } from 'src/common/utils/google.guard';
+import { RequestRegisterDto } from './dto/request-register.dto';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -59,6 +62,63 @@ export class AuthController {
   })
   async checksession(@Body() body: RequestTokenDto, @Res() response) {
     const result = await this.authService.checksession(body.token);
+    return response.status(HttpStatus.OK).json(result);
+  }
+
+  @Post('register')
+  @ApiOperation({ summary: 'Registro de usuario' })
+  @ApiResponse({
+    status: 200,
+    description: 'Registro exitoso.',
+    type: ResponseUpdateDto,
+  })
+  @ApiResponse({
+    status: 409,
+    description: 'Registro fallido.',
+    type: ResponseUserConflictDto,
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Error interno del servidor.',
+    type: ResponseInternalErrorDto,
+  })
+  async register(@Body() body: RequestRegisterDto, @Res() response) {
+    const result = await this.authService.register(
+      body.name,
+      body.lastname,
+      body.email,
+      body.password,
+    );
+    return response.status(HttpStatus.OK).json(result);
+  }
+
+  @Get('activate-account/:token')
+  @ApiOperation({ summary: 'Activar cuenta de usuario' })
+  @ApiResponse({
+    status: 200,
+    description: 'Cuenta activada exitosamente.',
+    type: ResponseUpdateDto,
+  })
+  @ApiResponse({
+    status: 409,
+    description: 'Token invalido.',
+    type: ResponseTokenConflictDto,
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Token expirado.',
+    type: ResponseTokenBadRequestDto,
+  })
+  async activateAccount(@Param('token') token: string, @Res() response) {
+    if (!token)
+      throw new HttpException(
+        {
+          status: 'nok',
+          message: "El parámetro 'token' es obligatorio",
+        },
+        HttpStatus.BAD_REQUEST,
+      );
+    const result = await this.authService.activateAccount(token);
     return response.status(HttpStatus.OK).json(result);
   }
 
@@ -203,5 +263,44 @@ export class AuthController {
       );
     const result = await this.authService.resetPassword(token, body.password);
     return response.status(HttpStatus.OK).json(result);
+  }
+
+  @Get('google')
+  @UseGuards(GoogleAuthGuard)
+  @ApiOperation({ summary: 'Redirige a Google para login/register' })
+  @ApiResponse({
+    status: 302,
+    description: 'Redirección a Google para autenticación.',
+  })
+  googleAuth() {
+    /* vacío, sólo desencadena el redirect */
+  }
+
+  @Get('google/redirect')
+  @UseGuards(GoogleAuthGuard)
+  @ApiOperation({ summary: 'Callback de Google; responde como login()' })
+  @ApiResponse({
+    status: 200,
+    description: 'Login exitoso con Google.',
+    type: ResponseLoginDto,
+  })
+  @ApiResponse({
+    status: 409,
+    description: 'Login fallido.',
+    type: ResponseLoginConflictDto,
+  })
+  async googleRedirect(
+    @Req() req: Request & { user: { userUuid: string } },
+    @Ip() ip,
+    @Res() response,
+  ) {
+    const { token, userUuid } = await this.authService.issueTokenForUser(
+      req.user.userUuid, // userUuid in req.user por GoogleStrategy
+      ip,
+      req.headers['user-agent'],
+    );
+    return response
+      .status(HttpStatus.OK)
+      .json({ login: true, token, userUuid });
   }
 }
